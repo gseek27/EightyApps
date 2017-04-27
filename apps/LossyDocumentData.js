@@ -1,6 +1,4 @@
 // This 80app returns the following attributes from each URL crawled:
-// * title
-// * meta tags
 // * links (everything in an 'a' tag)
 
 var EightyApp = function() {
@@ -11,10 +9,6 @@ var EightyApp = function() {
                 var object = {};
 
 		object.date_crawled = app.formatDate(Date.now());
-                object.title = $html.filter('title').text();
-                object.meta_description = $html.filter('meta[name="description"]').attr('content');
-                object.meta_keywords = $html.filter('meta[name="keywords"]').attr('content');
-                object.meta_subject = $html.filter('meta[name="subject"]').attr('content');
 
 		// Get lossy content by removing html tags and javascript
                 var lossyHTML = html;
@@ -35,7 +29,7 @@ var EightyApp = function() {
                 // gets all links in the html document
                 var links = [];
                 $html.find('a').each(function(i, obj) {
-                        var link = app.makeLink(url, $(this).attr('href'));
+                        var link = app.makeLink(url, $(this).attr('cname'));
                         if(link != null) {
                                 links.push(link);
                         }
